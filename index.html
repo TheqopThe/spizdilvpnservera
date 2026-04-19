@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPN Configs</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        /* Кнопка Tutorial слева */
+        .tutorial-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: transparent;
+            color: #00ff41;
+            border: 1px solid #00ff41;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .tutorial-btn:hover {
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        h1 {
+            color: #00ff41;
+            font-size: 24px;
+            margin-top: 60px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            flex-grow: 1; /* Чтобы контент занимал место и пушил футер вниз */
+        }
+
+        .config-card {
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .config-name {
+            font-weight: bold;
+            font-size: 18px;
+            color: #00ff41;
+        }
+
+        .config-url {
+            font-family: monospace;
+            font-size: 13px;
+            color: #888;
+            background: #050505;
+            padding: 10px;
+            border-radius: 6px;
+            word-break: break-all;
+            border: 1px solid #222;
+        }
+
+        .copy-btn {
+            background-color: #00ff41;
+            color: #000;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 5px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .copy-btn.copied {
+            background-color: #333;
+            color: #00ff41;
+        }
+
+        /* Большой текст внизу */
+        .bottom-text {
+            margin-top: 50px;
+            margin-bottom: 30px;
+            font-size: 20px;
+            color: #444; /* Тускло-серый, чтобы не отвлекал */
+            text-align: center;
+            font-weight: bold;
+            max-width: 80%;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #111;
+            border: 1px solid #00ff41;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 80%;
+            text-align: center;
+        }
+
+        .close-modal {
+            margin-top: 20px;
+            color: #888;
+            cursor: pointer;
+            text-decoration: underline;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="tutorial-btn" onclick="toggleModal(true)">TUTORIAL</button>
+
+    <h1>ЖИВУЧИЕ КФГ</h1>
+
+    <div class="container">
+        <div class="config-card">
+            <div class="config-name">От шашлыка</div>
+            <div class="config-url" id="url1">https://raw.githubusercontent.com/TheqopThe/spizdilvpnservera/refs/heads/main/configurki_shashlika.txt</div>
+            <button class="copy-btn" onclick="copyLink('url1', this)">Копировать RAW</button>
+        </div>
+
+        <div class="config-card">
+            <div class="config-name">Vless Universal</div>
+            <div class="config-url" id="url2">https://raw.githubusercontent.com/TheqopThe/spizdilvpnservera/refs/heads/main/vless_universal.txt</div>
+            <button class="copy-btn" onclick="copyLink('url2', this)">Копировать RAW</button>
+        </div>
+    </div>
+
+    <div class="bottom-text">
+        Сайт сделан нейронкой потому что я не умею кодить
+    </div>
+
+    <div id="tutorialModal" class="modal">
+        <div class="modal-content">
+            <p style="font-size: 18px; line-height: 1.5;">Нужно будет добавить подписку в вашей проге по типу nekobox - exclave загуглите</p>
+            <span class="close-modal" onclick="toggleModal(false)">Закрыть</span>
+        </div>
+    </div>
+
+    <script>
+        function copyLink(id, btn) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = 'СКОПИРОВАНО!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.classList.remove('copied');
+                }, 1500);
+            });
+        }
+
+        function toggleModal(show) {
+            document.getElementById('tutorialModal').style.display = show ? 'flex' : 'none';
+        }
+
+        window.onclick = function(event) {
+            let modal = document.getElementById('tutorialModal');
+            if (event.target == modal) toggleModal(false);
+        }
+    </script>
+
+</body>
+</html>
